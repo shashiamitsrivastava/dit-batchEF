@@ -11,7 +11,7 @@ public class Demo2 {
         String z = new String("amit");
         System.out.println(x==y);
         System.out.println(x==z);
-        //10.equals(20)
+        //10.equals(20); // Error
         System.out.println(x.equals(z));
 
 
