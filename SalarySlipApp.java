@@ -1,15 +1,54 @@
+import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.util.Scanner;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 class SalarySlipApp{
+    static ResourceBundle rb;
+    static Locale locale;
+    static void loadBundle(){
+        rb = ResourceBundle.getBundle("message",locale);
+    }
+    static String formatDate(){
+        Date date = new Date();
+        System.out.println(date);
+        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
+        return df.format(date);
+        //return null;
+    }
+    // value 9000.00 (double)
+    // formatted Value $9,000.00 (String)
+    static String formatCurrency(double value){
+       // NumberFormat nf  = new NumberFormat();
+       NumberFormat nf = NumberFormat.getCurrencyInstance(locale);
+       return nf.format(value);
+    }
 
     static void input(){
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Enter the Id");
+        System.out.println("Press 1 for english");
+        System.out.println(" हिंदी के लिए 2 दबाएँ");
+        System.out.println("Appuyez sur 3 pour le français");
+        
+        int choice = scanner.nextInt();
+        if(choice == 1){
+            locale = new Locale("en","US");
+        }
+        else if (choice == 2){
+            locale = new Locale("hi","IN");
+        }
+        else if(choice == 3){
+            locale = new Locale("fr","FR");
+        }
+        loadBundle();
+        System.out.println(rb.getString("id.msg"));
         int id = scanner.nextInt();
         scanner.nextLine(); 
-        System.out.println("Enter the Name");
+        System.out.println(rb.getString("name.msg"));
         String name = scanner.nextLine();
-        System.out.println("Enter the Basic Salary");
+        System.out.println(rb.getString("salary.msg"));
         double basicSalary = scanner.nextDouble();
         compute(id, name,basicSalary);
         scanner.close();
@@ -49,17 +88,19 @@ class SalarySlipApp{
     static void print(int id , String name , double basicSalary, 
     double hra, double da, double ta, double ma,
      double pf, double gs, double ns){
+        System.out.println("Today "+formatDate());
+        //formatDate();
         System.out.println("Id "+id);
         System.out.println("Name "+properCase(name));
-        System.out.println("Basic Salary "+basicSalary);
+        System.out.println("Basic Salary "+formatCurrency(basicSalary));
         System.out.println("Earning Allowances \t\t Deducation Allowances ");
-        System.out.println("HRA "+hra+ " \t\t\t PF "+pf);
-        System.out.println("DA "+da);
-        System.out.println("TA "+ta);
-        System.out.println("MA "+ma);
+        System.out.println("HRA "+formatCurrency(hra)+ " \t\t\t PF "+formatCurrency(pf));
+        System.out.println("DA "+formatCurrency(da));
+        System.out.println("TA "+formatCurrency(ta));
+        System.out.println("MA "+formatCurrency(ma));
        // System.out.println("PF "+pf);
-        System.out.println("GS "+gs);
-        System.out.println("NS "+ns);
+        System.out.println("GS "+formatCurrency(gs));
+        System.out.println("NS "+formatCurrency(ns));
     }
 
     public static void main(String[] args) {
