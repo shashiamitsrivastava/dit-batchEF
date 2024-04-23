@@ -1,19 +1,20 @@
+class A{
+    private int marks[] = new int[3];
+    A(){
+        System.out.println("Default Cons");
+    }
+    A(int x){
+        this(); // default constructor
+        System.out.println("Param Cons");
+    }
+    A(int x, int y){
+        this(x); // call one param constructor
+        System.out.println("2 Param Cons");
+    }
+}
 public class Demo2 {
     public static void main(String[] args) {
-        String q = "amit";
-        q = "ram";
-        // StringBuffer , StringBuilder
-        String sql = "select * from products";
-        sql += " where price >10000";
-        sql +=" and rating>4";
-        String x = "amit"; // 1 or 0 
-        String y = "amit";
-        String z = new String("amit");
-        System.out.println(x==y);
-        System.out.println(x==z);
-        //10.equals(20); // Error
-        System.out.println(x.equals(z));
-
-
-    }
+        A obj = new A(10,20); // calling 2 param constructor
+        //System.out.println("Success");
+    }   
 }
